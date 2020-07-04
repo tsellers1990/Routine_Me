@@ -1,28 +1,53 @@
 import React, { useState } from 'react';
-import { StyleSheet, Picker, Text, TextInput, Button, View } from 'react-native';
+import { StyleSheet, Picker, Text, TextInput, Button, View, Platform } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker'
 
 export default function AddRoutine ({ submitHandler }) {
-  const hours = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" ]
-  const minutes = [ "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60" ]
-
+  const [date, setDate] = useState(new Date(1598051730000));
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
   const [text, setText] = useState('');
 
   const textChangeHandler = (val) => {
       setText(val)
   }
 
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    setDate(currentDate);
+  };
+
+  const showMode = currentMode => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showTimepicker = () => {
+    showMode('time');
+  };
+
   return (
     <View>
+      <View>
+        <Button onPress={showTimepicker} title="Select Time" />
+      </View>
+      {show && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={date}
+          mode={mode}
+          is24Hour={false}
+          display="default"
+          onChange={onChange}
+        />
+      )}
       <TextInput 
       placeholder= "Add Routine Item"
       style={styles.input}
       onChangeText={textChangeHandler}
       />
-        <Picker> 
-           {pickerItems}
-        </Picker> 
-      <Picker />
-      <Button 
+       <Button 
       title="submit"
       onPress={submitHandler}
       // selectedHours={selectedHours}

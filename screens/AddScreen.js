@@ -1,32 +1,18 @@
 import * as WebBrowser from 'expo-web-browser';
 import React, { useState } from 'react';
-import { Platform, StyleSheet, Text, TouchableOpacity, View, Button, TextInput } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import AddRoutine from '../components/AddRoutine';
 
 export default function AddScreen() {
-  // const hours = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" ]
-  // const minutes = [ "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60" ]
-
-  // const STORAGE_KEY = '@save_routines'
- 
-  // const [routines, setRoutines] = useState([
-  // ])
-
-  // const [text, setText] = useState('');
-
-  // const textChangeHandler = (val) => {
-  //     setText(val)
-  // }
-
-  // const submitHandler = (text, time) => {
-  //   setRoutines((prevRoutines) => {
-  //     saveData();
-  //     return [
-  //       {title: text, time: time },
-  //       ...prevRoutines
-  //     ]
-  //   })
-  // }
+  const submitHandler = (time, text) => {
+    setTodos((prevTodos) => {
+      saveData();
+      return [
+        {title: text, key: Math.random().toString() },
+        ...prevTodos
+      ]
+    })
+  }
   
   return (
       //style={styles.container}
